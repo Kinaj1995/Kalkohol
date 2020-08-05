@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textColor="#4278FF"
-        android:textColorLink="#6295F8"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         android:textSize="28sp">
 

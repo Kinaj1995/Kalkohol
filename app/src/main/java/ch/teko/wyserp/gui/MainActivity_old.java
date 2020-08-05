@@ -1,15 +1,21 @@
-package ch.teko.wyserp.gui;
-
-import android.os.Bundle;
-import android.widget.ExpandableListView;
+/**package ch.teko.wyserp.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity_old extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener {
     ExpandableListView expandableListView;
     List<String> listGroup;
     HashMap<String,List<String>> listItem;
@@ -18,15 +24,23 @@ public class MainActivity_old extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_main);
 
         expandableListView = findViewById(R.id.expandable_list);
         listGroup = new ArrayList<>();
         listItem = new HashMap<>();
         adapter = new MainAdapter( this, listGroup,listItem);
         expandableListView.setAdapter(adapter);
+        expandableListView.setOnChildClickListener(this);
         initListData();
-        
+
+        Button plus = findViewById(R.id.btn_show_more);
+        Button user = findViewById(R.id.btn_user);
+
+        plus.setOnClickListener(this);
+        user.setOnClickListener(this);
+
+
     }
 
     private void initListData() {
@@ -39,9 +53,9 @@ public class MainActivity_old extends AppCompatActivity {
 
         List<String> list1 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group1);
-                for (String item : array) {
-                    list1.add(item);
-                }
+        for (String item : array) {
+            list1.add(item);
+        }
         List<String> list2 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group2);
         for (String item : array) {
@@ -64,4 +78,87 @@ public class MainActivity_old extends AppCompatActivity {
         listItem.put(listGroup.get(3),list4);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_show_more:
+                setContentView(R.layout.activity_details);
+                break;
+            case R.id.btn_user:
+                setContentView(R.layout.activity_user);
+                break;
+            case R.id.btn_back_to_main:
+                setContentView(R.layout.activity_main);
+                break;
+        }
+
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+        switch (groupPosition) {
+            case 0:
+                System.out.println("Bier");
+                if (childPosition == 0) {
+                    System.out.println("Stange"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                }
+                if (childPosition == 1) {
+                    System.out.println("Chöbel"); // insert Code to add a "Chöbel" to your calculation and comment out the sout
+                }
+                if (childPosition == 2) {
+                    System.out.println("Pitcher"); // insert Code to add a "Pitcher" to your calculation and comment out the sout
+                }
+                break;
+            case 1:
+                System.out.println("Wein");
+                if (childPosition == 0) {
+                    System.out.println("Rotwein 5dl"); // insert Code to add a "Rotwein" to your calculation and comment out the sout
+                }
+                if (childPosition == 1) {
+                    System.out.println("Weisswein 5dl"); // insert Code to add a "Weisswein" to your calculation and comment out the sout
+                }
+                if (childPosition == 2) {
+                    System.out.println("Rosé 5dl"); // insert Code to add a "Roseé" to your calculation and comment out the sout
+                }
+                break;
+            case 2:
+                System.out.println("Longdrink");
+                if (childPosition == 0) {
+                    System.out.println("Cuba Libre"); // insert Code to add a "Cuba Libre" to your calculation and comment out the sout
+                }
+                if (childPosition == 1) {
+                    System.out.println("Long Island"); // insert Code to add a "Long Island" to your calculation and comment out the sout
+                }
+                if (childPosition == 2) {
+                    System.out.println("Vodka Lemon"); // insert Code to add a "Vodka Lemon" to your calculation and comment out the sout
+                }
+                break;
+            case 3:
+                System.out.println("Shot");
+                if (childPosition == 0) {
+                    System.out.println("Vodka"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                }
+                if (childPosition == 1) {
+                    System.out.println("Gin"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                }
+                if (childPosition == 2) {
+                    System.out.println("B52"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                }
+                break;
+            default:
+                System.out.println("nothing selected");
+
+        }
+
+        Toast.makeText(this, listItem.get(listGroup.get(groupPosition)).get(childPosition) + " hinzugefügt", Toast.LENGTH_SHORT).show();
+
+
+
+        return true;
+    }
+
+
 }
+*/

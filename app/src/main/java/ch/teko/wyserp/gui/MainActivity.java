@@ -2,6 +2,7 @@ package ch.teko.wyserp.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_main);
 
         expandableListView = findViewById(R.id.expandable_list);
         listGroup = new ArrayList<>();
@@ -33,13 +34,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         expandableListView.setOnChildClickListener(this);
         initListData();
 
-
-
-        Button plus = findViewById(R.id.btn_show_more);
+        Button details = findViewById(R.id.btn_details);
         Button user = findViewById(R.id.btn_user);
 
 
-        plus.setOnClickListener(this);
+        details.setOnClickListener(this);
         user.setOnClickListener(this);
 
 
@@ -84,18 +83,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_show_more:
-                Toast.makeText(this, "Plus clicked", Toast.LENGTH_SHORT).show();
-                break;
+        switch (v.getId()) {
             case R.id.btn_user:
-                Toast.makeText(this, "User clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, User.class));
+                break;
+            case R.id.btn_details:
+                startActivity(new Intent(MainActivity.this, Details.class));
                 break;
         }
 
+
     }
-
-
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -160,5 +158,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
+
 
     }

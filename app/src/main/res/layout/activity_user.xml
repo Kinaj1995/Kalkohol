@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="1"
+    android:background="#2E2C2A"
+    android:clickable="false"
+    tools:context=".MainActivity">
+
+
+    <ImageView
+        android:id="@+id/background_logo"
+        android:layout_width="606dp"
+        android:layout_height="795dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466"
+        app:srcCompat="@drawable/logo300" />
+
+    <TextView
+        android:id="@+id/userTitle2"
+        android:layout_width="155dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="79dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:text="Gewicht"
+        android:textColor="@color/colorText"
+        android:textSize="30sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserTitle"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <TextView
+        android:id="@+id/userTitle3"
+        android:layout_width="155dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="79dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:text="Geschlecht"
+        android:textColor="@color/colorText"
+        android:textSize="30sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserTitle"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <NumberPicker
+        android:id="@+id/pickerWeightTen"
+        android:layout_width="44dp"
+        android:layout_height="88sp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:textSize="38sp"
+        android:theme="@style/AppTheme.Picker"
+        app:layout_constraintStart_toEndOf="@+id/pickerWeightOne"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle2" />
+
+    <NumberPicker
+        android:id="@+id/pickerWeightOne"
+        android:layout_width="44dp"
+        android:layout_height="88sp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="00dp"
+        android:textSize="38sp"
+        android:theme="@style/AppTheme.Picker"
+        app:layout_constraintStart_toStartOf="@+id/userTitle2"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle2" />
+
+    <TextView
+        android:id="@+id/UserTitle"
+        android:layout_width="156dp"
+        android:layout_height="58dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:text="Profil"
+        android:textColor="@color/colorText"
+        android:textSize="38sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.183" />
+
+    <TextView
+        android:id="@+id/userTitle"
+        android:layout_width="155dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="79dp"
+        android:background="#00FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:text="Alter"
+        android:textColor="@color/colorText"
+        android:textSize="30sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.199"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserTitle"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <NumberPicker
+        android:id="@+id/pickerAgeTen"
+        android:layout_width="44dp"
+        android:layout_height="88sp"
+        android:layout_marginTop="00dp"
+        android:textSize="38sp"
+        android:theme="@style/AppTheme.Picker"
+        app:layout_constraintStart_toStartOf="@+id/userTitle"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle" />
+
+    <NumberPicker
+        android:id="@+id/pickerAgeOne"
+        android:layout_width="44dp"
+        android:layout_height="88sp"
+        android:layout_marginStart="04dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="00dp"
+        android:textSize="38sp"
+        android:theme="@style/AppTheme.Picker"
+        app:layout_constraintStart_toEndOf="@+id/pickerAgeTen"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="96dp"
+        android:layout_height="87dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo300" />
+
+    <RadioGroup
+        android:id="@+id/toggle"
+        android:layout_width="302dp"
+        android:layout_height="31dp"
+        android:background="@null"
+        android:checkedButton="@+id/offer"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userTitle3">
+
+        <RadioButton
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorChoiseBackground"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Weiblich"
+            android:checked="true"
+            android:textColor="@color/colorPrimary"
+            android:textColorHighlight="@color/colorText"
+            android:textIsSelectable="true" />
+
+        <RadioButton
+            android:id="@+id/offer"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:background="@color/colorChoiseBackground"
+            android:button="@null"
+            android:gravity="center"
+            android:checked="false"
+            android:text="Männlich"
+            android:textColor="@color/colorPrimary" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="384dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="53dp" />
+
+    <Button
+        android:id="@+id/btn_back_to_main"
+        android:layout_width="101dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Zurück"
+        android:textColor="@color/colorPrimary"
+        android:background="#00FFFFFF"
+        android:fontFamily="sans-serif-black"
+        android:textSize="20sp"
+        android:typeface="normal"
+        android:visibility="visible"
+
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
