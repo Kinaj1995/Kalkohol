@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name" translatable="false">Kalkohol</string>
+    <string name="current_state_data" translatable="true">1.5‰</string>
+    <string name="profile_name" translatable="true">Max Muster</string>
+    <string name="title_time" translatable="true">Wieder nüchtern in:</string>
+    <string name="time_data" translatable="true">5.2h</string>
+
+    <string name="group1" translatable="true">Bier</string>
+    <string name="group2" translatable="true">Wein</string>
+    <string name="group3" translatable="true">Longdrinks</string>
+    <string name="group4" translatable="true">Shots</string>
+
+    <string-array name="group1">
+        <item>Stange</item>
+        <item>Chöbel</item>
+        <item>Pitcher</item>
+    </string-array>
+
+    <string-array name="group2">
+        <item>Rotwein 5dl</item>
+        <item>Weisswein 5dl</item>
+        <item>Rosé 5dl</item>
+    </string-array>
+
+    <string-array name="group3">
+        <item>Cuba Libre</item>
+        <item>Long Island</item>
+        <item>Vodka Lemon</item>
+    </string-array>
+
+    <string-array name="group4">
+        <item>Vodka</item>
+        <item>Gin</item>
+        <item>B52</item>
+    </string-array>
+
+
+</resources>
