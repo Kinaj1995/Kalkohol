@@ -6,12 +6,14 @@ package ch.teko.wyserp.gui;
         import android.content.Intent;
         import android.graphics.Paint;
         import android.os.Bundle;
+        import android.text.Editable;
         import android.util.Log;
         import android.view.View;
         import android.widget.Button;
         import android.widget.EditText;
         import android.widget.NumberPicker;
-
+        import android.widget.RadioButton;
+        import android.widget.Toast;
 
 
 public class User extends AppCompatActivity implements View.OnClickListener {
@@ -20,6 +22,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     private NumberPicker pickerAgeOne;
     private NumberPicker pickerWeightTen;
     private NumberPicker pickerWeightOne;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +48,47 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
         Button back = findViewById(R.id.btn_back_to_main);
         back.setOnClickListener(this);
+
+        Button male = findViewById(R.id.r_btn_male);
+        male.setOnClickListener(this);
+
+        Button female = findViewById(R.id.r_btn_female);
+        female.setOnClickListener(this);
+
+        Button userEnter = findViewById(R.id.btn_enter_user);
+        userEnter.setOnClickListener(this);
+
+
+
     }
+
+    public void setUserData(){
+
+
+    }
+
+
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_back_to_main) {
             finish();
         }
+        if (v.getId() == R.id.r_btn_male) {
+            System.out.println("male");
+        }
+        if (v.getId() == R.id.r_btn_female) {
+            System.out.println("female");
+        }
+        if (v.getId() == R.id.btn_enter_user) {
+            setUserData();
+            Toast.makeText(this, "Profil gespeichert", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
 
     }
+
+
 
 }

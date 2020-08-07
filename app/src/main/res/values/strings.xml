@@ -9,6 +9,7 @@
     <string name="group2" translatable="true">Wein</string>
     <string name="group3" translatable="true">Longdrinks</string>
     <string name="group4" translatable="true">Shots</string>
+    <string name="profilName">Name</string>
 
     <string-array name="group1">
         <item>Stange</item>
