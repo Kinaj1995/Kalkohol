@@ -280,7 +280,6 @@
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="@string/profilName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"

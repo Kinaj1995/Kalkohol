@@ -3,7 +3,9 @@ package ch.teko.wyserp.gui;
         import androidx.appcompat.app.AppCompatActivity;
 
         import android.annotation.SuppressLint;
+        import android.content.Context;
         import android.content.Intent;
+        import android.content.SharedPreferences;
         import android.graphics.Paint;
         import android.os.Bundle;
         import android.text.Editable;
@@ -22,12 +24,30 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     private NumberPicker pickerAgeOne;
     private NumberPicker pickerWeightTen;
     private NumberPicker pickerWeightOne;
+    EditText ed1;
+
+    public static final String User1 = "user" ;
+    public static final String name = "name";
+    public static final String age = "age";
+    public static final String weight = "weight";
+    public static final String gender = "gender";
+
+    SharedPreferences sharedpreferences;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(User1, Context.MODE_PRIVATE);
+        String User1 = sharedpreferences.getString(name, "");
+
+        ed1 = (EditText)findViewById(R.id.editProfileName);
+        ed1.setText(User1);
+
 
         pickerAgeTen = findViewById(R.id.pickerAgeTen);
         pickerAgeTen.setMinValue(0);
@@ -63,10 +83,18 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     }
 
     public void setUserData(){
+        ed1 = (EditText)findViewById(R.id.editProfileName);
 
+        String str_userName = ed1.getText().toString();
+        sharedpreferences = getSharedPreferences(User1, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.putString(name, str_userName);
+        editor.commit();
+
+        System.out.println(str_userName);
 
     }
-
 
 
     @Override
@@ -81,8 +109,8 @@ public class User extends AppCompatActivity implements View.OnClickListener {
             System.out.println("female");
         }
         if (v.getId() == R.id.btn_enter_user) {
-            setUserData();
             Toast.makeText(this, "Profil gespeichert", Toast.LENGTH_SHORT).show();
+            setUserData();
             finish();
         }
 

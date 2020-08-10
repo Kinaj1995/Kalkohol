@@ -3,6 +3,7 @@ package ch.teko.wyserp.gui;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,8 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,10 +24,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HashMap<String,List<String>> listItem;
     MainAdapter adapter;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Stetho.initializeWithDefaults(this);
 
         expandableListView = findViewById(R.id.expandable_list);
         listGroup = new ArrayList<>();
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new MainAdapter( this, listGroup,listItem);
         expandableListView.setAdapter(adapter);
         expandableListView.setOnChildClickListener(this);
+
         initListData();
 
         Button details = findViewById(R.id.btn_details);
