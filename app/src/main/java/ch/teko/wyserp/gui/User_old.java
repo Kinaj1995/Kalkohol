@@ -1,16 +1,16 @@
-package ch.teko.wyserp.gui;
+/**package ch.teko.wyserp.gui;
 
-        import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
-        import android.content.Context;
-        import android.content.SharedPreferences;
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.Button;
-        import android.widget.EditText;
-        import android.widget.NumberPicker;
-        import android.widget.RadioButton;
-        import android.widget.Toast;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 
 public class User extends AppCompatActivity implements View.OnClickListener {
@@ -40,22 +40,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        ed1 = (EditText)findViewById(R.id.editProfileName);
-        ed1.setText(getName("name"));
-
-        initData();
-
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initData();
-    }
-
-    public void initData() {
-
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actAge = sharedpreferences.getString(age, "");
@@ -64,6 +48,10 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
         int iAge= Integer.parseInt(actAge);
         int iWeight= Integer.parseInt(actWeight);
+
+
+        ed1 = (EditText)findViewById(R.id.editProfileName);
+        ed1.setText(getName("name"));
 
 
         pickerAge = findViewById(R.id.pickerAge);
@@ -89,8 +77,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         Button userEnter = findViewById(R.id.btn_enter_user);
         userEnter.setOnClickListener(this);
 
-        System.out.println(actGender);
-
         if (actGender == ("male")) {
             male.setChecked(true);
             female.setChecked(false);
@@ -99,6 +85,13 @@ public class User extends AppCompatActivity implements View.OnClickListener {
             female.setChecked(true);
             male.setChecked(false);
         }
+
+
+
+
+    }
+
+    public void initData() {
 
     }
 
@@ -162,3 +155,4 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
 
 }
+ */

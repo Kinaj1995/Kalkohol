@@ -43,23 +43,11 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <NumberPicker
-        android:id="@+id/pickerWeightTen"
-        android:layout_width="44dp"
-        android:layout_height="88sp"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:textSize="38sp"
-        android:theme="@style/AppTheme.Picker"
-        app:layout_constraintStart_toEndOf="@+id/pickerWeightOne"
-        app:layout_constraintTop_toBottomOf="@+id/userTitle2" />
-
-    <NumberPicker
-        android:id="@+id/pickerWeightOne"
-        android:layout_width="44dp"
-        android:layout_height="88sp"
+        android:id="@+id/pickerWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="93dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="00dp"
         android:textSize="38sp"
         android:theme="@style/AppTheme.Picker"
         app:layout_constraintStart_toStartOf="@+id/userTitle2"
@@ -142,25 +130,13 @@
         app:layout_constraintVertical_bias="0.082" />
 
     <NumberPicker
-        android:id="@+id/pickerAgeTen"
-        android:layout_width="44dp"
-        android:layout_height="88sp"
+        android:id="@+id/pickerAge"
+        android:layout_width="wrap_content"
+        android:layout_height="88dp"
         android:layout_marginTop="00dp"
         android:textSize="38sp"
         android:theme="@style/AppTheme.Picker"
         app:layout_constraintStart_toStartOf="@+id/userTitle"
-        app:layout_constraintTop_toBottomOf="@+id/userTitle" />
-
-    <NumberPicker
-        android:id="@+id/pickerAgeOne"
-        android:layout_width="44dp"
-        android:layout_height="88sp"
-        android:layout_marginStart="04dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="00dp"
-        android:textSize="38sp"
-        android:theme="@style/AppTheme.Picker"
-        app:layout_constraintStart_toEndOf="@+id/pickerAgeTen"
         app:layout_constraintTop_toBottomOf="@+id/userTitle" />
 
     <ImageView
@@ -182,7 +158,6 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="24dp"
         android:background="@null"
-        android:checkedButton="@+id/r_btn_female"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userTitle3">

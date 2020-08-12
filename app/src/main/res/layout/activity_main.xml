@@ -59,12 +59,11 @@
         app:layout_constraintVertical_bias="0.177" />
 
     <TextView
-        android:id="@+id/profile_data"
+        android:id="@+id/profile_username"
         android:layout_width="199dp"
         android:layout_height="27dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="@string/profile_name"
         android:textColor="@color/colorText"
         android:textSize="22sp"
         android:typeface="normal"
@@ -73,7 +72,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profile_title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.177" />
+        app:layout_constraintVertical_bias="0.175" />
 
     <TextView
         android:id="@+id/current_state_data"

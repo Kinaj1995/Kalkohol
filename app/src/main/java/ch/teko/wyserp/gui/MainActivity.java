@@ -2,12 +2,11 @@ package ch.teko.wyserp.gui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +17,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.icu.util.ULocale.getName;
+import static ch.teko.wyserp.gui.User.age;
+import static ch.teko.wyserp.gui.User.gender;
+import static ch.teko.wyserp.gui.User.weight;
+import static ch.teko.wyserp.gui.User.name;
+import static ch.teko.wyserp.gui.User.user;
+
+import android.content.SharedPreferences;
+
+
+
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener {
     ExpandableListView expandableListView;
     List<String> listGroup;
@@ -26,12 +37,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Stetho.initializeWithDefaults(this);
+        initUserData();
 
         expandableListView = findViewById(R.id.expandable_list);
         listGroup = new ArrayList<>();
@@ -48,9 +59,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         details.setOnClickListener(this);
         user.setOnClickListener(this);
-
-
         
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initUserData();
+    }
+
+    public void initUserData() {
+        super.onResume();
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actName = sharedpreferences.getString(name, "");
+        String actAge = sharedpreferences.getString(age, "");
+        String actWeight = sharedpreferences.getString(weight, "");
+        String actGender = sharedpreferences.getString(gender, "");
+
+        TextView actProfile = (TextView) findViewById(R.id.profile_username);
+        actProfile.setText(actName);
+
     }
 
     private void initListData() {
