@@ -27,8 +27,6 @@ import static ch.teko.wyserp.gui.User.user;
 import android.content.SharedPreferences;
 
 
-
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener {
     ExpandableListView expandableListView;
     List<String> listGroup;
@@ -36,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MainAdapter adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Stetho.initializeWithDefaults(this);
+
+        Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
         initUserData();
 
         expandableListView = findViewById(R.id.expandable_list);
@@ -127,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_details:
                 startActivity(new Intent(MainActivity.this, Details.class));
                 break;
+
         }
 
 
@@ -195,8 +194,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
-
-
-
 
 }

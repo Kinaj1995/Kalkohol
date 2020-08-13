@@ -18,31 +18,20 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     private NumberPicker pickerAge;
     private NumberPicker pickerWeigt;
     EditText ed1;
-    String getAge;
-    String getWeight;
     String getGender;
-
-
-
-
     public static final String user = "user" ;
     public static final String name = "name";
     public static final String age = "age";
     public static final String weight = "weight";
     public static final String gender = "gender";
-
     public static SharedPreferences sharedpreferences;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         ed1 = (EditText)findViewById(R.id.editProfileName);
         ed1.setText(getName("name"));
-
         initData();
 
 
@@ -124,8 +113,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-
-
     public String getName(String sName){
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
@@ -133,9 +120,6 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         return User1;
 
     }
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -158,7 +142,5 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
 
     }
-
-
 
 }
