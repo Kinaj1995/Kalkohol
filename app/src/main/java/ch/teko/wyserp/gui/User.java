@@ -83,12 +83,13 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         if (actGender == ("male")) {
             male.setChecked(true);
             female.setChecked(false);
-      
+            float fGender= 0.68f;                                   // jasc
+
         }
         if (actGender == ("female")) {
             female.setChecked(true);
             male.setChecked(false);
-
+            float fGender= 0.55f;                                   // jasc
         }
 
     }

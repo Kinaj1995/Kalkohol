@@ -132,14 +132,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public float calcNewDrink(float AlkoholWeight) {                               // jasc
+    public float calcNewDrink(float AlcWeight) {                               // jasc
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String a  = sharedpreferences.getString(weight, "");
-        float b = Float.parseFloat(a);
-        float result = AlkoholWeight/b;
+        String actAge = sharedpreferences.getString(age, "");
+        String actWeight  = sharedpreferences.getString(weight, "");
+        String actGender  = sharedpreferences.getString(gender, "");
+        float fWeight = Float.parseFloat(actWeight);
+        float fGender = Float.parseFloat(actGender);
+
+        float result = AlcWeight / fWeight / fGender;
         return result;
     }
+
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -148,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 0:
                 System.out.println("Bier");
                 if (childPosition == 0) {
-                    float alk = calcNewDrink(10);
+                    float addedAlc = calcNewDrink(10); //
                     System.out.println("Stange"); // insert Code to add a "Stange" to your calculation and comment out the sout
                 }
                 if (childPosition == 1) {
