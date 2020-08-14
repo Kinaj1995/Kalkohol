@@ -47,13 +47,18 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor edit = sharedpreferences.edit();
+        edit.putString(weight, "88").apply();
+        edit.putString(age, "20").apply();
+        edit.putString(gender, "male").apply();
+
         String actAge = sharedpreferences.getString(age, "");
         String actWeight = sharedpreferences.getString(weight, "");
         String actGender = sharedpreferences.getString(gender, "");
 
         int iAge= Integer.parseInt(actAge);
         int iWeight= Integer.parseInt(actWeight);
-
 
         pickerAge = findViewById(R.id.pickerAge);
         pickerAge.setMinValue(0);
@@ -83,10 +88,12 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         if (actGender == ("male")) {
             male.setChecked(true);
             female.setChecked(false);
+            //float fGender= 0.68f;                                   // jasc
         }
         if (actGender == ("female")) {
             female.setChecked(true);
             male.setChecked(false);
+            //float fGender= 0.55f;                                   // jasc
         }
 
     }

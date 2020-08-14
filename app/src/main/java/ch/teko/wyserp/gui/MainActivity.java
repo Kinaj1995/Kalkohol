@@ -16,6 +16,7 @@ import com.facebook.stetho.Stetho;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import static android.icu.util.ULocale.getName;
 import static ch.teko.wyserp.gui.User.age;
@@ -131,6 +132,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public float calcNewDrink(float AlkoholWeight) {                               // jasc
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String a  = sharedpreferences.getString(weight, "");
+        float b = Float.parseFloat(a);
+        float result = AlkoholWeight/b;
+        return result;
+    }
+
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
@@ -138,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 0:
                 System.out.println("Bier");
                 if (childPosition == 0) {
+                    float alk = calcNewDrink(10);
                     System.out.println("Stange"); // insert Code to add a "Stange" to your calculation and comment out the sout
                 }
                 if (childPosition == 1) {
@@ -194,5 +205,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
+
 
 }
