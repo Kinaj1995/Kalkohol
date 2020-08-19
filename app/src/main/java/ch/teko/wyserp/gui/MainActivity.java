@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actName = sharedpreferences.getString(name, "");
-        String actAge = sharedpreferences.getString(age, "");
-        String actWeight = sharedpreferences.getString(weight, "");
-        String actGender = sharedpreferences.getString(gender, "");
+        String actName = sharedpreferences.getString(name, "Max Muster");
+        String actAge = sharedpreferences.getString(age, "25");
+        String actWeight = sharedpreferences.getString(weight, "80");
+        String actGender = sharedpreferences.getString(gender, "0");
 
         TextView actProfile = (TextView) findViewById(R.id.profile_username);
         actProfile.setText(actName);
@@ -132,17 +132,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public float calcNewDrink(float AlcWeight) {                               // jasc
+    public float calcNewDrink(float AlcWeight) {                    // jasc
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actAge = sharedpreferences.getString(age, "");
+        String actAge = sharedpreferences.getString(age, "");   // actAge is not going to be used in the calculation for now
         String actWeight  = sharedpreferences.getString(weight, "");
         String actGender  = sharedpreferences.getString(gender, "");
-        float fWeight = Float.parseFloat(actWeight);
-        float fGender = Float.parseFloat(actGender);
 
-        float result = AlcWeight / fWeight / fGender;
+        float fWeight = Float.parseFloat(actWeight);
+        float result = 0.00f;
+
+        if (actGender == "male") {                                // jasc
+            float fGender= 0.68f;
+            result = AlcWeight / fWeight / fGender;
+            System.out.println("test");
+            System.out.println(result);
+        }
+
+        if (actGender == ("female")) {                              // jasc
+            float fGender= 0.55f;
+            result = AlcWeight / fWeight / fGender;
+        }
+        
+
         return result;
+
     }
 
 
@@ -153,9 +167,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 0:
                 System.out.println("Bier");
                 if (childPosition == 0) {
-                    float addedAlc = calcNewDrink(10); //
-                    System.out.println("Stange"); // insert Code to add a "Stange" to your calculation and comment out the sout
-                }
+                    System.out.println("Stange"); // insert Code to add a "Chöbel" to your calculation and comment out the sout
+                    float addedAlc;                                 // jasc
+                    calcNewDrink(10f);
+                    addedAlc =calcNewDrink(10f);
+                    System.out.printf("%.2f", addedAlc);
+                    System.out.println("");
+
+                    }
                 if (childPosition == 1) {
                     System.out.println("Chöbel"); // insert Code to add a "Chöbel" to your calculation and comment out the sout
                     }

@@ -28,6 +28,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ed1 = (EditText)findViewById(R.id.editProfileName);
@@ -38,8 +39,16 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     }
 
     @Override
+    protected void onResume() {
+        System.out.println("onResume");
+        super.onResume();
+        initData();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        System.out.println("onStart");
         initData();
     }
 
@@ -47,9 +56,9 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actAge = sharedpreferences.getString(age, "");
-        String actWeight = sharedpreferences.getString(weight, "");
-        String actGender = sharedpreferences.getString(gender, "");
+        String actAge = sharedpreferences.getString(age, "25");
+        String actWeight = sharedpreferences.getString(weight, "80");
+        String actGender = sharedpreferences.getString(gender, "0");
 
         int iAge= Integer.parseInt(actAge);
         int iWeight= Integer.parseInt(actWeight);
@@ -80,16 +89,14 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
         System.out.println(actGender);
 
-        if (actGender == ("male")) {
+        if (actGender == "male") {
             male.setChecked(true);
             female.setChecked(false);
-            float fGender= 0.68f;                                   // jasc
-
         }
-        if (actGender == ("female")) {
+
+        if (actGender == "female") {
             female.setChecked(true);
             male.setChecked(false);
-            float fGender= 0.55f;                                   // jasc
         }
 
     }
@@ -119,7 +126,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     public String getName(String sName){
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String User1 = sharedpreferences.getString(sName, "");
+        String User1 = sharedpreferences.getString(sName, "Max Muster");
         return User1;
 
     }
