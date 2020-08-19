@@ -145,8 +145,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (actGender == "male") {                                // jasc
             float fGender= 0.68f;
             result = AlcWeight / fWeight / fGender;
-            System.out.println("test");
-            System.out.println(result);
         }
 
         if (actGender == ("female")) {                              // jasc
@@ -154,7 +152,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             result = AlcWeight / fWeight / fGender;
         }
         
-
         return result;
 
     }
@@ -164,60 +161,222 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
         switch (groupPosition) {
-            case 0:
-                System.out.println("Bier");
+            case 0: // Bier:
+                // Stange:
                 if (childPosition == 0) {
-                    System.out.println("Stange"); // insert Code to add a "Chöbel" to your calculation and comment out the sout
-                    float addedAlc;                                 // jasc
-                    calcNewDrink(10f);
-                    addedAlc =calcNewDrink(10f);
-                    System.out.printf("%.2f", addedAlc);
-                    System.out.println("");
+                    /*
+                    Beverage:                   Stange Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+                    Volume (V):                 300 ml
+                    Volume percentage (e):      4.8 % VOL. = 0.048
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
 
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (300f * 0.048f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Stange = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                     }
+                // Chöbel:
                 if (childPosition == 1) {
-                    System.out.println("Chöbel"); // insert Code to add a "Chöbel" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Chöbel Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+                    Volume (V):                 500 ml
+                    Volume percentage (e):      4.8 % VOL. = 0.048
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (500f * 0.048f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Chöbel = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                     }
+                // Pitcher:
                 if (childPosition == 2) {
-                    System.out.println("Pitcher"); // insert Code to add a "Pitcher" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Pitcher Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+                    Volume (V):                 1800 ml
+                    Volume percentage (e):      4.8 % VOL. = 0.048
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (1800f * 0.048f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Pitcher = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
                 break;
-            case 1:
-                System.out.println("Wein");
+
+            case 1: // Wein
+                // Rotwein:
                 if (childPosition == 0) {
-                    System.out.println("Rotwein 5dl"); // insert Code to add a "Rotwein" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Rotwein 1dl
+                    Volume (V):                 100 ml
+                    Volume percentage (e):      13 % VOL. = 0.12
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (100f * 0.13f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Rotwein 1dl = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // Weisswein:
                 if (childPosition == 1) {
-                    System.out.println("Weisswein 5dl"); // insert Code to add a "Weisswein" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Weisswein 1dl
+                    Volume (V):                 100 ml
+                    Volume percentage (e):      12 % VOL. = 0.12
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (100f * 0.12f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Weisswein 1dl = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // Rosé:
                 if (childPosition == 2) {
-                    System.out.println("Rosé 5dl"); // insert Code to add a "Roseé" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Rosé 1dl
+                    Volume (V):                 100 ml
+                    Volume percentage (e):      10 % VOL. = 0.10
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (100f * 0.10f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Rosé 1dl = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
                 break;
-            case 2:
-                System.out.println("Longdrink");
+
+            case 2: // Longdrinks:
+                // Cuba Libre:
                 if (childPosition == 0) {
-                    System.out.println("Cuba Libre"); // insert Code to add a "Cuba Libre" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Cuba Libre
+                    Volume (V):                 40 ml of Rum
+                    Volume percentage (e):      24 % VOL. = 0.24
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (40f * 0.24f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Cuba Libre = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // Long Island:
                 if (childPosition == 1) {
-                    System.out.println("Long Island"); // insert Code to add a "Long Island" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Long Island
+                    Volume (V):                 300 ml
+                    Volume percentage (e):      21 % VOL. = 0.21
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (300f * 0.21f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Long Island = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // Vodka Lemon:
                 if (childPosition == 2) {
-                    System.out.println("Vodka Lemon"); // insert Code to add a "Vodka Lemon" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Vodka Lemon
+                    Volume (V):                 40 ml of Wodka
+                    Volume percentage (e):      40 % VOL. = 0.40
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (40f * 0.40f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Vodka Lemon = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
                 break;
-            case 3:
-                System.out.println("Shot");
+
+            case 3: // Shots:
+                // Vodka:
                 if (childPosition == 0) {
-                    System.out.println("Vodka"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Vodka
+                    Volume (V):                 20 ml
+                    Volume percentage (e):      40 % VOL. = 0.40
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (20f * 0.40f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Vodka Shot = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // Gin:
                 if (childPosition == 1) {
-                    System.out.println("Gin"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   Gin
+                    Volume (V):                 20 ml
+                    Volume percentage (e):      40 % VOL. = 0.40
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (20f * 0.40f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("Gin Shot = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
+                // B52:
                 if (childPosition == 2) {
-                    System.out.println("B52"); // insert Code to add a "Stange" to your calculation and comment out the sout
+                    /*
+                    Beverage:                   B52
+                    Volume (V):                 20 ml
+                    Volume percentage (e):      55 % VOL. = 0.55
+                    Density of ethanol (ϱ):     0.8 g/ml
+                    */
+
+                    // calculation for ethanol in grams (g): A = V * e * ϱ
+                    float ethanol = (20f * 0.55f * 0.8f);
+
+                    // calculation for added blood alcohol concentration (BAC):
+                    float addToBAC = calcNewDrink(ethanol);
+                    System.out.print("B52 Shot = +");
+                    System.out.printf("%.4f%s%n", addToBAC,"‰");
                 }
                 break;
+
             default:
                 System.out.println("nothing selected");
 
