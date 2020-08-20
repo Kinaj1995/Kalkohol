@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    public void initUserData() {
+    public void initUserData(){
         super.onResume();
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView actProfile = (TextView) findViewById(R.id.profile_username);
         actProfile.setText(actName);
+
+        assert actGender != null;
+        if (actGender.equals("0")){
+            Toast.makeText(this,"Erstellen Sie bitte zuerst ein Profil", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -120,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setDisplay("2.0‰", "3.2h");
+        setDisplay("2.0‰", "3.2h"); // test
 
         Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
         initUserData();
