@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo300" />
+        app:srcCompat="@drawable/logo300"
+        android:contentDescription="@string/background_description" />
 
     <TextView
         android:id="@+id/userTitle2"
@@ -30,7 +31,7 @@
         android:layout_marginTop="79dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Gewicht"
+        android:text="@string/weight_title"
         android:textColor="@color/colorText"
         android:textSize="30sp"
         android:typeface="normal"
@@ -60,7 +61,7 @@
         android:layout_marginTop="79dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Geschlecht"
+        android:text="@string/gender_title"
         android:gravity="center"
         android:textColor="@color/colorText"
         android:textSize="30sp"
@@ -79,7 +80,7 @@
         android:layout_height="38dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Name"
+        android:text="@string/name_title"
         android:gravity="center"
         android:textColor="@color/colorText"
         android:textSize="30sp"
@@ -98,7 +99,7 @@
         android:layout_height="58dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Profil"
+        android:text="@string/profile_main_title"
         android:textColor="@color/colorText"
         android:textSize="38sp"
         android:typeface="normal"
@@ -117,7 +118,7 @@
         android:layout_marginTop="79dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Alter"
+        android:text="@string/age_title"
         android:textColor="@color/colorText"
         android:textSize="30sp"
         android:typeface="normal"
@@ -148,7 +149,8 @@
         android:layout_marginRight="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo300" />
+        app:srcCompat="@drawable/logo300"
+        android:contentDescription="@string/logo_description" />
 
     <RadioGroup
         android:id="@+id/toggle"
@@ -174,10 +176,10 @@
             android:background="@drawable/checkbox_background"
             android:button="@null"
             android:gravity="center"
-            android:text="Weiblich"
-            android:textSize="20sp"
+            android:text="@string/female_text"
             android:textColor="@color/colorText"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/r_btn_male"
@@ -191,9 +193,9 @@
             android:background="@drawable/checkbox_background"
             android:button="@null"
             android:gravity="center"
-            android:text="Männlich"
-            android:textSize="20sp"
-            android:textColor="@color/colorText" />
+            android:text="@string/male_text"
+            android:textColor="@color/colorText"
+            android:textSize="20sp" />
     </RadioGroup>
 
     <androidx.constraintlayout.widget.Guideline
@@ -217,7 +219,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="Zurück"
+        android:text="@string/nav_back"
         android:textColor="@color/colorPrimary"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
@@ -231,13 +233,13 @@
         android:id="@+id/btn_enter_user"
         android:layout_width="120dp"
         android:layout_height="45dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Bestätigen"
         android:gravity="center"
+        android:text="@string/enter_profile_values"
         android:textColor="@color/colorPrimary"
         android:textSize="20sp"
         android:typeface="normal"
@@ -258,7 +260,9 @@
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTitleName" />
+        app:layout_constraintTop_toBottomOf="@+id/userTitleName"
+        android:autofillHints=""
+        tools:ignore="LabelFor" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

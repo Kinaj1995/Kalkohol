@@ -1,26 +1,44 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Kalkohol</string>
-    <string name="current_state_data" translatable="true">1.5‰</string>
+    <string name="current_state_data" translatable="true">0.0‰</string>
     <string name="profile_name" translatable="true">Max Muster</string>
     <string name="title_time" translatable="true">Wieder nüchtern in:</string>
-    <string name="time_data" translatable="true">5.2h</string>
+    <string name="time_data" translatable="true">0.0h</string>
 
     <string name="group1" translatable="true">Bier</string>
     <string name="group2" translatable="true">Wein</string>
     <string name="group3" translatable="true">Longdrinks</string>
     <string name="group4" translatable="true">Shots</string>
     <string name="profilName">Name</string>
+    <string name="main_title">Kalkohol</string>
+    <string name="profil_title">Profil:</string>
+    <string name="BAC_Data_title">Aktuell:</string>
+    <string name="choise_title">Durstig?</string>
+    <string name="logo_description">logo</string>
+    <string name="background_description">background_description</string>
+    <string name="weight_title">Gewicht</string>
+    <string name="gender_title">Geschlecht</string>
+    <string name="name_title">Name</string>
+    <string name="profile_main_title">Profil</string>
+    <string name="age_title">Alter</string>
+    <string name="female_text">Weiblich</string>
+    <string name="male_text">Männlich</string>
+    <string name="nav_back">Zurück</string>
+    <string name="enter_profile_values">Bestätigen</string>
+    <string name="main_profile_title">Profil:</string>
+    <string name="main_bca_title">Aktuell:</string>
+    <string name="main_choise_title">Durstig?</string>
 
     <string-array name="group1">
-        <item>Stange</item>
+        <item tools:ignore="Typos">Stange</item>
         <item>Chöbel</item>
         <item>Pitcher</item>
     </string-array>
 
     <string-array name="group2">
-        <item>Rotwein 5dl</item>
-        <item>Weisswein 5dl</item>
-        <item>Rosé 5dl</item>
+        <item>Rotwein 1dl</item>
+        <item>Weisswein 1dl</item>
+        <item>Rosé 1dl</item>
     </string-array>
 
     <string-array name="group3">

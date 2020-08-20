@@ -7,5 +7,5 @@
     <color name="colorText">#C1B01D</color>
     <color name="colorTextLight">#C67D20</color>
     <color name="colorChoiseBackground">#2FECC045</color>
-    <color background="colorBackground">#333300</color>
+    <color name="colorBackground">#333300</color>
 </resources>

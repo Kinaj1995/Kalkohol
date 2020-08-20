@@ -1,71 +1,43 @@
 package ch.teko.wyserp.gui;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.facebook.stetho.Stetho;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.Objects;
 
-import static android.icu.util.ULocale.getName;
+import android.content.SharedPreferences;
+
 import static ch.teko.wyserp.gui.User.age;
 import static ch.teko.wyserp.gui.User.gender;
 import static ch.teko.wyserp.gui.User.weight;
 import static ch.teko.wyserp.gui.User.name;
 import static ch.teko.wyserp.gui.User.user;
 
-import android.content.SharedPreferences;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener, View.OnLongClickListener {
     ExpandableListView expandableListView;
     List<String> listGroup;
     HashMap<String,List<String>> listItem;
     MainAdapter adapter;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
-        initUserData();
-
-        expandableListView = findViewById(R.id.expandable_list);
-        listGroup = new ArrayList<>();
-        listItem = new HashMap<>();
-        adapter = new MainAdapter( this, listGroup,listItem);
-        expandableListView.setAdapter(adapter);
-        expandableListView.setOnChildClickListener(this);
-
-        initListData();
-
-        Button details = findViewById(R.id.btn_details);
-        Button user = findViewById(R.id.btn_user);
 
 
-        details.setOnClickListener(this);
-        user.setOnClickListener(this);
-        
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initUserData();
-    }
 
     public void initUserData() {
         super.onResume();
@@ -91,45 +63,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         List<String> list1 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group1);
-                for (String item : array) {
-                    list1.add(item);
-                }
+
+        Collections.addAll(list1, array);
         List<String> list2 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group2);
-        for (String item : array) {
-            list2.add(item);
-        }
+        Collections.addAll(list2, array);
         List<String> list3 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group3);
-        for (String item : array) {
-            list3.add(item);
-        }
+        Collections.addAll(list3, array);
         List<String> list4 = new ArrayList<>();
         array = getResources().getStringArray(R.array.group4);
-        for (String item : array) {
-            list4.add(item);
-        }
+        Collections.addAll(list4, array);
 
         listItem.put(listGroup.get(0),list1);
         listItem.put(listGroup.get(1),list2);
         listItem.put(listGroup.get(2),list3);
         listItem.put(listGroup.get(3),list4);
         adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_user:
-                startActivity(new Intent(MainActivity.this, User.class));
-                break;
-            case R.id.btn_details:
-                startActivity(new Intent(MainActivity.this, Details.class));
-                break;
-
-        }
-
-
     }
 
     public float calcNewDrink(float AlcWeight) {                    // jasc
@@ -139,24 +89,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String actWeight  = sharedpreferences.getString(weight, "");
         String actGender  = sharedpreferences.getString(gender, "");
 
+        assert actWeight != null;
         float fWeight = Float.parseFloat(actWeight);
         float result = 0.00f;
 
-        if (actGender == "male") {                                // jasc
+        assert actGender != null;
+        if (actGender.equals("male")) {                                // jasc
             float fGender= 0.68f;
             result = AlcWeight / fWeight / fGender;
         }
 
-        if (actGender == ("female")) {                              // jasc
+        if (actGender.equals("female")) {                              // jasc
             float fGender= 0.55f;
             result = AlcWeight / fWeight / fGender;
         }
-        
+
         return result;
 
     }
 
+    public void setDisplay(String bca, String time){
+        TextView actBca = (TextView) findViewById(R.id.state_data);
+        TextView actTime = (TextView) findViewById(R.id.time_data);
+        actBca.setText(bca);
+        actTime.setText(time);
 
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setDisplay("2.0‰", "3.2h");
+
+        Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
+        initUserData();
+
+        expandableListView = findViewById(R.id.expandable_list);
+        listGroup = new ArrayList<>();
+        listItem = new HashMap<>();
+        adapter = new MainAdapter( this, listGroup,listItem);
+        expandableListView.setAdapter(adapter);
+        expandableListView.setOnChildClickListener(this);
+
+        initListData();
+
+        Button reset = findViewById(R.id.btn_reset);
+        Button user = findViewById(R.id.btn_user);
+
+
+        reset.setOnLongClickListener(this);
+        user.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initUserData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_user) {
+            startActivity(new Intent(MainActivity.this, User.class));
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
@@ -382,12 +382,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        Toast.makeText(this, listItem.get(listGroup.get(groupPosition)).get(childPosition) + " hinzugefügt", Toast.LENGTH_SHORT).show();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Toast.makeText(this, Objects.requireNonNull(listItem.get(listGroup.get(groupPosition))).get(childPosition) + " hinzugefügt", Toast.LENGTH_SHORT).show();
+        }
 
 
         return true;
     }
 
-
+    @Override
+    public boolean onLongClick(View v) {
+        if (v.getId() == R.id.btn_reset) {
+            setDisplay("0.0‰", "0.0h");
+            Toast.makeText(this,"Konsumierte Getränke und Alkoholpegel zurückgesetzt", Toast.LENGTH_LONG).show();
+        }
+        return false;
+    }
 }

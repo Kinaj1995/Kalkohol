@@ -20,7 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.466"
-        app:srcCompat="@drawable/logo300" />
+        app:srcCompat="@drawable/logo300"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/title"
@@ -28,7 +29,7 @@
         android:layout_height="44dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Kalkohol"
+        android:text="@string/main_title"
         android:textColor="@color/colorText"
         android:textSize="36sp"
         android:typeface="normal"
@@ -46,7 +47,7 @@
         android:layout_height="28dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Profil:"
+        android:text="@string/main_profile_title"
         android:textColor="@color/colorText"
         android:textSize="22sp"
         android:typeface="normal"
@@ -75,7 +76,7 @@
         app:layout_constraintVertical_bias="0.175" />
 
     <TextView
-        android:id="@+id/current_state_data"
+        android:id="@+id/state_data"
         android:layout_width="150dp"
         android:layout_height="84dp"
         android:layout_marginStart="28dp"
@@ -85,7 +86,7 @@
         android:text="@string/current_state_data"
         android:textAllCaps="false"
         android:textColor="@color/colorTextLight"
-        android:textSize="52dp"
+        android:textSize="52sp"
         android:typeface="normal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,9 +101,9 @@
         android:layout_height="58dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Aktuell:"
+        android:text="@string/main_bca_title"
         android:textColor="@color/colorText"
-        android:textSize="38dp"
+        android:textSize="38sp"
         android:typeface="normal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -158,7 +159,7 @@
         android:layout_marginTop="6dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:text="Durstig?"
+        android:text="@string/main_choise_title"
         android:textColor="@color/colorText"
         android:textSize="28sp"
         android:typeface="normal"
@@ -179,7 +180,8 @@
         android:layout_marginTop="16sp"
         app:layout_constraintStart_toEndOf="@+id/title"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo300" />
+        app:srcCompat="@drawable/logo300"
+        tools:ignore="ContentDescription" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -205,17 +207,16 @@
         android:background="@drawable/user"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/profile_data"
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <Button
-        android:id="@+id/btn_details"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:background="@drawable/plus"
+        android:id="@+id/btn_reset"
+        android:layout_width="38sp"
+        android:layout_height="38sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginEnd="32sp"
+        android:layout_marginRight="36sp"
+        android:background="@drawable/reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/current_state_title" />
 
