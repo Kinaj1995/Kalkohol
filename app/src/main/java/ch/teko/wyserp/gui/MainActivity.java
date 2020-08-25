@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.SharedPreferences;
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     HashMap<String, List<String>> listItem;
     MainAdapter adapter;
     float currentBAC = 0;
+    float tts;
 
     public void initUserData() {
         super.onResume();
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.notifyDataSetChanged();
     }
 
-    public float calcNewDrink(float AlcWeight) {                    // jasc
+    public float calcNewDrink(float AlcWeight) {
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actAge = sharedpreferences.getString(age, "");   // actAge is not going to be used in the calculation for now
@@ -97,12 +100,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         float result = 0.00f;
 
         assert actGender != null;
-        if (actGender.equals("male")) {                                // jasc
+        if (actGender.equals("male")) {
             float fGender = 0.68f;
             result = AlcWeight / fWeight / fGender;
         }
 
-        if (actGender.equals("female")) {                              // jasc
+        if (actGender.equals("female")) {
             float fGender = 0.55f;
             result = AlcWeight / fWeight / fGender;
         }
@@ -111,11 +114,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    /* public float elapsedTimeInHours() {
+
+        float result = 0.00f;
+
+        float start = System.currentTimeMillis();
+        float end = System.currentTimeMillis();
+        result = (end - start) / 1000f / 3600f;
+
+        return result;
+
+    } */
+
+    public void initInterval() {
+
+        Timer timer = new Timer();
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                alcReduction(1);
+            }
+        }, 0, 60000);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // If: Wert im setDisplay durch lokal abgespeicherten currentBAC ersetzen
+        // else: setDisplay(0.0f);
         setDisplay(0.0f);
 
         Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
@@ -136,6 +167,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         reset.setOnLongClickListener(this);
         user.setOnClickListener(this);
+
+
+        this.initInterval();
+
 
     }
 
@@ -337,14 +372,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setDisplay(float bac) {
 
         TextView actBac = (TextView) findViewById(R.id.state_data);
-        TextView actTime = (TextView) findViewById(R.id.time_data);
 
         this.currentBAC += bac;
+        if (this.currentBAC <= 0) {
+            this.currentBAC = 0;
+        }
+
+        // der current BAC im lokalen Speicher speichern
+
+        this.setNewTimeTillSober();
+
+
         float roundedBAC = Math.round(this.currentBAC * 10.0f) / 10.0f;
-        float roundedTime = Math.round(0.0f * 10.0f) / 10.0f;
-
         actBac.setText(Float.toString(roundedBAC) + "‰");
-        actTime.setText(Float.toString(roundedTime) + "h");
 
+    }
+
+    private void setNewTimeTillSober() {
+
+        if (this.currentBAC <= 0) {
+            TextView actTime = (TextView) findViewById(R.id.time_data);
+            actTime.setText(Float.toString(0.0f) + "h");
+            return;
+        }
+
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actGender = sharedpreferences.getString(gender, "");
+
+        float fGender = 0.0f;
+
+        assert actGender != null;
+        if (actGender.equals("male")) {
+            fGender = 0.16f;
+        }
+
+        if (actGender.equals("female")) {
+            fGender = 0.14f;
+        }
+
+        this.tts = this.currentBAC / fGender;
+        float roundedTts = Math.round(this.tts * 10.0f) / 10.0f;
+
+
+        TextView actTime = (TextView) findViewById(R.id.time_data);
+        actTime.setText(Float.toString(roundedTts) + "h");
+
+    }
+
+    public void alcReduction(float elapsedTime) {
+
+
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actGender = sharedpreferences.getString(gender, "");
+
+        float reduction = 0.00f;
+
+        assert actGender != null;
+        if (actGender.equals("male")) {
+            float fGender = 0.16f / 60;
+            reduction = fGender * elapsedTime;
+        }
+
+        if (actGender.equals("female")) {
+            float fGender = 0.14f / 60;
+            reduction = fGender * elapsedTime;
+        }
+
+        this.setDisplay((-1) * reduction);
     }
 }
