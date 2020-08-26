@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import static ch.teko.wyserp.gui.User.gender;
 import static ch.teko.wyserp.gui.User.weight;
 import static ch.teko.wyserp.gui.User.name;
 import static ch.teko.wyserp.gui.User.user;
+import static ch.teko.wyserp.gui.User.BAC;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener, View.OnLongClickListener {
@@ -39,6 +41,242 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MainAdapter adapter;
     float currentBAC = 0;
     float tts;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // BAC vom lokalen Speicher lesen
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actBAC = sharedpreferences.getString(BAC, "");
+        this.currentBAC = Float.parseFloat(actBAC);
+
+        Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
+        initUserData();
+
+        expandableListView = findViewById(R.id.expandable_list);
+        listGroup = new ArrayList<>();
+        listItem = new HashMap<>();
+        adapter = new MainAdapter(this, listGroup, listItem);
+        expandableListView.setAdapter(adapter);
+        expandableListView.setOnChildClickListener(this);
+
+        initListData();
+
+        Button reset = findViewById(R.id.btn_reset);
+        Button user = findViewById(R.id.btn_user);
+
+
+        reset.setOnLongClickListener(this);
+        user.setOnClickListener(this);
+
+
+        this.initTimer();
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initUserData();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_user) {
+            startActivity(new Intent(MainActivity.this, User.class));
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v.getId() == R.id.btn_reset) {
+            this.currentBAC = 0.0f;
+            setDisplay(0.0f);
+            Toast.makeText(this, "Konsumierte Getränke und Alkoholpegel zurückgesetzt", Toast.LENGTH_LONG).show();
+
+            SharedPreferences sharedpreferences;
+            sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            String resetBAC = Float.toString(this.currentBAC);
+            editor.putString(BAC, resetBAC);
+            editor.apply();
+        }
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+        float ethanol = 0.0f;
+
+        if (groupPosition == 0) {
+            ethanol = this.calcBeerChild(childPosition);
+        } else if (groupPosition == 1) {
+            ethanol = this.calcWineChild(childPosition);
+        } else if (groupPosition == 2) {
+            ethanol = this.calcLongdrinksChild(childPosition);
+        } else if (groupPosition == 3) {
+            ethanol = this.calcShotsChild(childPosition);
+        }
+
+        this.setDisplay(ethanol);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Toast.makeText(this, Objects.requireNonNull(listItem.get(listGroup.get(groupPosition))).get(childPosition) + " hinzugefügt", Toast.LENGTH_SHORT).show();
+        }
+
+        return true;
+    }
+
+    /**
+     * childPosition = 0:
+     * Beverage:                   Stange Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+     * Volume (V):                 300 ml
+     * Volume percentage (e):      4.8 % VOL. = 0.048
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * <p>
+     * childPosition = 1:
+     * Beverage:                   Chöbel Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+     * Volume (V):                 500 ml
+     * Volume percentage (e):      4.8 % VOL. = 0.048
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * <p>
+     * childPosition = 2:
+     * Beverage:                   Pitcher Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
+     * Volume (V):                 1800 ml
+     * Volume percentage (e):      4.8 % VOL. = 0.048
+     * Density of ethanol (ϱ):     0.8 g/ml
+     *
+     * @param childPos
+     * @return
+     */
+    private float calcBeerChild(int childPos) {
+
+        if (childPos == 0) {
+            return this.calcNewDrink(300f * 0.048f * 0.8f);
+        } else if (childPos == 1) {
+            return this.calcNewDrink(500f * 0.048f * 0.8f);
+        } else if (childPos == 2) {
+            return this.calcNewDrink(1800f * 0.048f * 0.8f);
+        }
+
+        return 0.0f;
+
+    }
+
+    /**
+     * childPosition = 0:
+     * Beverage:                   Rotwein 1dl
+     * Volume (V):                 100 ml
+     * Volume percentage (e):      13 % VOL. = 0.12
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * <p>
+     * childPosition = 1:
+     * Beverage:                   Weisswein 1dl
+     * Volume (V):                 100 ml
+     * Volume percentage (e):      12 % VOL. = 0.12
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * <p>
+     * childPosition = 2:
+     * Beverage:                   Rosé 1dl
+     * Volume (V):                 100 ml
+     * Volume percentage (e):      10 % VOL. = 0.10
+     * Density of ethanol (ϱ):     0.8 g/ml
+     *
+     * @param childPos
+     * @return
+     */
+    private float calcWineChild(int childPos) {
+
+        if (childPos == 0) {
+            return this.calcNewDrink(100f * 0.13f * 0.8f);
+        } else if (childPos == 1) {
+            return this.calcNewDrink(100f * 0.12f * 0.8f);
+        } else if (childPos == 2) {
+            return this.calcNewDrink(100f * 0.10f * 0.8f);
+        }
+
+        return 0.0f;
+
+    }
+
+    /**
+     * childPosition = 0:
+     * Beverage:                   Cuba Libre
+     * Volume (V):                 40 ml of Rum
+     * Volume percentage (e):      24 % VOL. = 0.24
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * *
+     * *childPosition = 1:
+     * Beverage:                   Long Island
+     * Volume (V):                 300 ml
+     * Volume percentage (e):      21 % VOL. = 0.21
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * *
+     * *childPosition = 2:
+     * Beverage:                   Vodka Lemon
+     * Volume (V):                 40 ml of Wodka
+     * Volume percentage (e):      40 % VOL. = 0.40
+     * Density of ethanol (ϱ):     0.8 g/ml
+     *
+     * @param childPos
+     * @return
+     */
+    private float calcLongdrinksChild(int childPos) {
+
+        if (childPos == 0) {
+            return this.calcNewDrink(40f * 0.24f * 0.8f);
+        } else if (childPos == 1) {
+            return this.calcNewDrink(300f * 0.21f * 0.8f);
+        } else if (childPos == 2) {
+            return this.calcNewDrink(40f * 0.40f * 0.8f);
+        }
+
+        return 0.0f;
+
+    }
+
+    /**
+     * childPosition = 0:
+     * Beverage:                   Vodka
+     * Volume (V):                 20 ml
+     * Volume percentage (e):      40 % VOL. = 0.40
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * *
+     * *childPosition = 1:
+     * Beverage:                   Gin
+     * Volume (V):                 20 ml
+     * Volume percentage (e):      40 % VOL. = 0.40
+     * Density of ethanol (ϱ):     0.8 g/ml
+     * *
+     * *childPosition = 2:
+     * Beverage:                   B52
+     * Volume (V):                 20 ml
+     * Volume percentage (e):      55 % VOL. = 0.55
+     * Density of ethanol (ϱ):     0.8 g/ml
+     *
+     * @param childPos
+     * @return
+     */
+    private float calcShotsChild(int childPos) {
+
+        if (childPos == 0) {
+            return this.calcNewDrink(20f * 0.40f * 0.8f);
+        } else if (childPos == 1) {
+            return this.calcNewDrink(20f * 0.40f * 0.8f);
+        } else if (childPos == 2) {
+            return this.calcNewDrink(20f * 0.55f * 0.8f);
+        }
+
+        return 0.0f;
+    }
 
     public void initUserData() {
         super.onResume();
@@ -126,248 +364,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     } */
 
-    public void initInterval() {
+    public void initTimer() {
 
         Timer timer = new Timer();
 
+        // alcReduction every 60 sec:
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 alcReduction(1);
             }
         }, 0, 60000);
-    }
 
+        // alcReduction while app closed:
+        /*timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                int timestamp;
+                timestamp = new Timestamp();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        // If: Wert im setDisplay durch lokal abgespeicherten currentBAC ersetzen
-        // else: setDisplay(0.0f);
-        setDisplay(0.0f);
-
-        Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
-        initUserData();
-
-        expandableListView = findViewById(R.id.expandable_list);
-        listGroup = new ArrayList<>();
-        listItem = new HashMap<>();
-        adapter = new MainAdapter(this, listGroup, listItem);
-        expandableListView.setAdapter(adapter);
-        expandableListView.setOnChildClickListener(this);
-
-        initListData();
-
-        Button reset = findViewById(R.id.btn_reset);
-        Button user = findViewById(R.id.btn_user);
-
-
-        reset.setOnLongClickListener(this);
-        user.setOnClickListener(this);
-
-
-        this.initInterval();
-
+                public int compareTo (Date o)
+            }
+        }, 0, 60000);*/
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initUserData();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.btn_user) {
-            startActivity(new Intent(MainActivity.this, User.class));
-        }
-    }
+    public void alcReduction(float elapsedTime) {
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actGender = sharedpreferences.getString(gender, "");
 
-        float ethanol = 0.0f;
+        float reduction = 0.00f;
 
-        if (groupPosition == 0) {
-            ethanol = this.calcBeerChild(childPosition);
-        } else if (groupPosition == 1) {
-            ethanol = this.calcWineChild(childPosition);
-        } else if (groupPosition == 2) {
-            ethanol = this.calcLongdrinksChild(childPosition);
-        } else if (groupPosition == 3) {
-            ethanol = this.calcShotsChild(childPosition);
+        assert actGender != null;
+        if (actGender.equals("male")) {
+            float fGender = 0.16f / 60;
+            reduction = fGender * elapsedTime;
         }
 
-        this.setDisplay(ethanol);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Toast.makeText(this, Objects.requireNonNull(listItem.get(listGroup.get(groupPosition))).get(childPosition) + " hinzugefügt", Toast.LENGTH_SHORT).show();
+        if (actGender.equals("female")) {
+            float fGender = 0.14f / 60;
+            reduction = fGender * elapsedTime;
         }
 
-        return true;
+        this.setDisplay((-1) * reduction);
     }
-
-    @Override
-    public boolean onLongClick(View v) {
-        if (v.getId() == R.id.btn_reset) {
-            this.currentBAC = 0.0f;
-            setDisplay(0.0f);
-            Toast.makeText(this, "Konsumierte Getränke und Alkoholpegel zurückgesetzt", Toast.LENGTH_LONG).show();
-        }
-        return false;
-    }
-
-    /**
-     * childPosition = 0:
-     * Beverage:                   Stange Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
-     * Volume (V):                 300 ml
-     * Volume percentage (e):      4.8 % VOL. = 0.048
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * <p>
-     * childPosition = 1:
-     * Beverage:                   Chöbel Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
-     * Volume (V):                 500 ml
-     * Volume percentage (e):      4.8 % VOL. = 0.048
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * <p>
-     * childPosition = 2:
-     * Beverage:                   Pitcher Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
-     * Volume (V):                 1800 ml
-     * Volume percentage (e):      4.8 % VOL. = 0.048
-     * Density of ethanol (ϱ):     0.8 g/ml
-     *
-     * @param childPos
-     * @return
-     */
-    private float calcBeerChild(int childPos) {
-
-        if (childPos == 0) {
-            return this.calcNewDrink(300f * 0.048f * 0.8f);
-        } else if (childPos == 1) {
-            return this.calcNewDrink(500f * 0.048f * 0.8f);
-        } else if (childPos == 2) {
-            return this.calcNewDrink(1800f * 0.048f * 0.8f);
-        }
-
-        return 0.0f;
-
-    }
-
-
-    /**
-     * childPosition = 0:
-     * Beverage:                   Rotwein 1dl
-     * Volume (V):                 100 ml
-     * Volume percentage (e):      13 % VOL. = 0.12
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * <p>
-     * childPosition = 1:
-     * Beverage:                   Weisswein 1dl
-     * Volume (V):                 100 ml
-     * Volume percentage (e):      12 % VOL. = 0.12
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * <p>
-     * childPosition = 2:
-     * Beverage:                   Rosé 1dl
-     * Volume (V):                 100 ml
-     * Volume percentage (e):      10 % VOL. = 0.10
-     * Density of ethanol (ϱ):     0.8 g/ml
-     *
-     * @param childPos
-     * @return
-     */
-
-    private float calcWineChild(int childPos) {
-
-        if (childPos == 0) {
-            return this.calcNewDrink(100f * 0.13f * 0.8f);
-        } else if (childPos == 1) {
-            return this.calcNewDrink(100f * 0.12f * 0.8f);
-        } else if (childPos == 2) {
-            return this.calcNewDrink(100f * 0.10f * 0.8f);
-        }
-
-        return 0.0f;
-
-    }
-
-    /**
-     * childPosition = 0:
-     * Beverage:                   Cuba Libre
-     * Volume (V):                 40 ml of Rum
-     * Volume percentage (e):      24 % VOL. = 0.24
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * *
-     * *childPosition = 1:
-     * Beverage:                   Long Island
-     * Volume (V):                 300 ml
-     * Volume percentage (e):      21 % VOL. = 0.21
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * *
-     * *childPosition = 2:
-     * Beverage:                   Vodka Lemon
-     * Volume (V):                 40 ml of Wodka
-     * Volume percentage (e):      40 % VOL. = 0.40
-     * Density of ethanol (ϱ):     0.8 g/ml
-     *
-     * @param childPos
-     * @return
-     */
-    private float calcLongdrinksChild(int childPos) {
-
-        if (childPos == 0) {
-            return this.calcNewDrink(40f * 0.24f * 0.8f);
-        } else if (childPos == 1) {
-            return this.calcNewDrink(300f * 0.21f * 0.8f);
-        } else if (childPos == 2) {
-            return this.calcNewDrink(40f * 0.40f * 0.8f);
-        }
-
-        return 0.0f;
-
-    }
-
-    /**
-     * childPosition = 0:
-     * Beverage:                   Vodka
-     * Volume (V):                 20 ml
-     * Volume percentage (e):      40 % VOL. = 0.40
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * *
-     * *childPosition = 1:
-     * Beverage:                   Gin
-     * Volume (V):                 20 ml
-     * Volume percentage (e):      40 % VOL. = 0.40
-     * Density of ethanol (ϱ):     0.8 g/ml
-     * *
-     * *childPosition = 2:
-     * Beverage:                   B52
-     * Volume (V):                 20 ml
-     * Volume percentage (e):      55 % VOL. = 0.55
-     * Density of ethanol (ϱ):     0.8 g/ml
-     *
-     * @param childPos
-     * @return
-     */
-    private float calcShotsChild(int childPos) {
-
-        if (childPos == 0) {
-            return this.calcNewDrink(20f * 0.40f * 0.8f);
-        } else if (childPos == 1) {
-            return this.calcNewDrink(20f * 0.40f * 0.8f);
-        } else if (childPos == 2) {
-            return this.calcNewDrink(20f * 0.55f * 0.8f);
-        }
-
-        return 0.0f;
-    }
-
 
     private void setDisplay(float bac) {
 
@@ -378,7 +421,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             this.currentBAC = 0;
         }
 
-        // der current BAC im lokalen Speicher speichern
+        // der currentBAC im lokalen Speicher speichern
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        String str_currentBAC = Float.toString(this.currentBAC);
+        editor.putString(BAC, str_currentBAC);
+
+        editor.apply();
+
 
         this.setNewTimeTillSober();
 
@@ -420,26 +472,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    public void alcReduction(float elapsedTime) {
 
-
-        SharedPreferences sharedpreferences;
-        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actGender = sharedpreferences.getString(gender, "");
-
-        float reduction = 0.00f;
-
-        assert actGender != null;
-        if (actGender.equals("male")) {
-            float fGender = 0.16f / 60;
-            reduction = fGender * elapsedTime;
-        }
-
-        if (actGender.equals("female")) {
-            float fGender = 0.14f / 60;
-            reduction = fGender * elapsedTime;
-        }
-
-        this.setDisplay((-1) * reduction);
-    }
 }
+
