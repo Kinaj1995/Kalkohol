@@ -32,6 +32,7 @@ import static ch.teko.wyserp.gui.User.weight;
 import static ch.teko.wyserp.gui.User.name;
 import static ch.teko.wyserp.gui.User.user;
 import static ch.teko.wyserp.gui.User.BAC;
+import static ch.teko.wyserp.gui.User.time;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ExpandableListView.OnChildClickListener, View.OnLongClickListener {
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     MainAdapter adapter;
     float currentBAC = 0;
     float tts;
+    Timestamp timestampOnCreate;
+    Timestamp actTimestamp;
 
 
     @Override
@@ -49,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // BAC vom lokalen Speicher lesen
+        // BAC + time vom lokalen Speicher lesen
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actBAC = sharedpreferences.getString(BAC, "");
@@ -76,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         this.initTimer();
+
+        this.timestampOnCreate = new Timestamp(System.currentTimeMillis());
+
+        closedAppTime();
 
 
     }
@@ -352,18 +359,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    /* public float elapsedTimeInHours() {
-
-        float result = 0.00f;
-
-        float start = System.currentTimeMillis();
-        float end = System.currentTimeMillis();
-        result = (end - start) / 1000f / 3600f;
-
-        return result;
-
-    } */
-
     public void initTimer() {
 
         Timer timer = new Timer();
@@ -376,17 +371,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }, 0, 60000);
 
-        // alcReduction while app closed:
-        /*timer.scheduleAtFixedRate(new TimerTask() {
+        // Timestamp every 60 sec for calculating alcReduction while app closed:
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                int timestamp;
-                timestamp = new Timestamp();
+                actTimestamp = new Timestamp(System.currentTimeMillis());
 
-                public int compareTo (Date o)
+                // timestamp im lokalen Speicher speichern
+                SharedPreferences sharedpreferences;
+                sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                String str_timestamp = actTimestamp.toString();
+                editor.putString(time, str_timestamp);
+                editor.apply();
             }
-        }, 0, 60000);*/
+        }, 10000, 60000);
 
+    }
+
+    public void closedAppTime(){
+        float passedTime;
+
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actTime = sharedpreferences.getString(time, "");
+
+        this.actTimestamp = Timestamp.valueOf(actTime);
+        passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
+        alcReduction(passedTime / 1000f / 60f);
     }
 
     public void alcReduction(float elapsedTime) {
@@ -425,10 +437,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-
         String str_currentBAC = Float.toString(this.currentBAC);
         editor.putString(BAC, str_currentBAC);
-
         editor.apply();
 
 

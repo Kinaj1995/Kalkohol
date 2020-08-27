@@ -30,6 +30,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     public static final String weight = "weight";
     public static final String gender = "gender";
     public static final String BAC = "BAC";
+    public static final String time = "time";
 
 
     public static SharedPreferences sharedpreferences;
