@@ -10,12 +10,9 @@ package ch.teko.wyserp.gui;
         import android.widget.EditText;
         import android.widget.NumberPicker;
         import android.widget.RadioButton;
-        import android.widget.RadioGroup;
         import android.widget.Toast;
 
-        import static ch.teko.wyserp.gui.R.id.checked;
         import static ch.teko.wyserp.gui.R.id.r_btn_female;
-        import static ch.teko.wyserp.gui.R.id.radio;
 
 
 public class User extends AppCompatActivity implements View.OnClickListener {
@@ -110,6 +107,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         String str_userName = ed1.getText().toString();
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
+
 
         if (vMale.isChecked()){
             getGender = "male";

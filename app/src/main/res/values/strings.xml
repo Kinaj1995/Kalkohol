@@ -28,6 +28,9 @@
     <string name="main_profile_title">Profil:</string>
     <string name="main_bca_title">Aktuell:</string>
     <string name="main_choise_title">Durstig?</string>
+    <string name="haftungsausschluss">Die App Kalkohol ist rein zur Unterhaltung gedacht und fundiert nicht auf medizinisch korrekten Daten. Jegliche Haftung wird abgelehnt.</string>
+    <string name="Drive">Don\'t drink and drive!</string>
+    <string name="Hinweis_Title">Hinweis</string>
 
     <string-array name="group1">
         <item tools:ignore="Typos">Stange</item>

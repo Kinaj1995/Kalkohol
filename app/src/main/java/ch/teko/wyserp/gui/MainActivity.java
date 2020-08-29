@@ -3,6 +3,7 @@ package ch.teko.wyserp.gui;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -44,18 +45,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     float tts;
     Timestamp timestampOnCreate;
     Timestamp actTimestamp;
+    Dialog popup;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        popup = new Dialog(this);
+        popup.setContentView(R.layout.popup);
+        popup.show();
 
         // BAC + time vom lokalen Speicher lesen
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actBAC = sharedpreferences.getString(BAC, "");
+        String actBAC = sharedpreferences.getString(BAC, "0.0");
         this.currentBAC = Float.parseFloat(actBAC);
 
         Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
@@ -77,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         reset.setOnLongClickListener(this);
         user.setOnClickListener(this);
 
-
         this.initTimer();
 
         this.timestampOnCreate = new Timestamp(System.currentTimeMillis());
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.btn_user) {
             startActivity(new Intent(MainActivity.this, User.class));
         }
+
     }
 
     @Override
@@ -394,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actTime = sharedpreferences.getString(time, "");
+        String actTime = sharedpreferences.getString(time, "0000-00-00 00:00:00");
 
         this.actTimestamp = Timestamp.valueOf(actTime);
         passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
