@@ -399,7 +399,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actTime = sharedpreferences.getString(time, "0000-00-00 00:00:00");
+        String actTime = sharedpreferences.getString(time, "0000-00-00 00:00:00.000");
 
         this.actTimestamp = Timestamp.valueOf(actTime);
         passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
