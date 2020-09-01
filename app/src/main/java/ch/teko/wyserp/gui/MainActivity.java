@@ -45,17 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     float tts;
     Timestamp timestampOnCreate;
     Timestamp actTimestamp;
-    Dialog popup;
+    public Dialog popup;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        popup = new Dialog(this);
-        popup.setContentView(R.layout.popup);
-        popup.show();
 
         // BAC + time vom lokalen Speicher lesen
         SharedPreferences sharedpreferences;
@@ -86,7 +82,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.timestampOnCreate = new Timestamp(System.currentTimeMillis());
 
-        closedAppTime();
+//        closedAppTime();
+
+        popup = new Dialog(this);
+        popup.show();
+        popup.setContentView(R.layout.popup);
+
 
 
     }

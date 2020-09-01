@@ -17,6 +17,7 @@
         android:textStyle="bold"
         android:text="@string/Hinweis_Title"
         android:textColor="@color/colorText"
+        android:fontFamily="sans-serif-black"
         android:textSize="32sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
@@ -28,6 +29,7 @@
         android:layout_marginTop="232dp"
         android:gravity="center"
         android:text="@string/Drive"
+        android:fontFamily="sans-serif-black"
         android:textColor="@color/colorText"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -40,6 +42,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="@string/haftungsausschluss"
+        android:fontFamily="sans-serif-black"
         android:textColor="@color/colorText"
         android:textSize="20sp"
         android:textStyle=""
