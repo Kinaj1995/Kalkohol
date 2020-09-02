@@ -1,6 +1,8 @@
 package ch.teko.wyserp.gui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class MainAdapter extends BaseExpandableListAdapter {
 
@@ -31,7 +34,10 @@ public class MainAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return this.listItem.get(this.listGroup.get(groupPosition)).size();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return Objects.requireNonNull(this.listItem.get(this.listGroup.get(groupPosition))).size();
+        }
+        return groupPosition;
     }
 
     @Override
@@ -41,8 +47,11 @@ public class MainAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return this.listItem.get(this.listGroup.get(groupPosition))
-                .get(childPosition);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return Objects.requireNonNull(this.listItem.get(this.listGroup.get(groupPosition)))
+                    .get(childPosition);
+        }
+        return null;
     }
 
     @Override
@@ -60,6 +69,7 @@ public class MainAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String group = (String) getGroup(groupPosition);
@@ -74,6 +84,7 @@ public class MainAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean istLastChild, View convertView, ViewGroup parent) {
         String child = (String) getChild(groupPosition,childPosition);

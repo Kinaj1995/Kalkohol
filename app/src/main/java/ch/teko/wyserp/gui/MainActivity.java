@@ -3,6 +3,7 @@ package ch.teko.wyserp.gui;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,6 @@ import java.util.TimerTask;
 
 import android.content.SharedPreferences;
 
-import static ch.teko.wyserp.gui.User.age;
 import static ch.teko.wyserp.gui.User.gender;
 import static ch.teko.wyserp.gui.User.weight;
 import static ch.teko.wyserp.gui.User.name;
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actBAC = sharedpreferences.getString(BAC, "0.0");
+        assert actBAC != null;
         this.currentBAC = Float.parseFloat(actBAC);
 
         Stetho.initializeWithDefaults(this); // Google Chrome Debugger for saved Values
@@ -296,11 +297,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actName = sharedpreferences.getString(name, "Max Muster");
-        String actAge = sharedpreferences.getString(age, "25");
-        String actWeight = sharedpreferences.getString(weight, "80");
         String actGender = sharedpreferences.getString(gender, "0");
 
-        TextView actProfile = (TextView) findViewById(R.id.profile_username);
+        TextView actProfile = findViewById(R.id.profile_username);
         actProfile.setText(actName);
 
         assert actGender != null;
@@ -342,7 +341,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public float calcNewDrink(float AlcWeight) {
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actAge = sharedpreferences.getString(age, "");   // actAge is not going to be used in the calculation for now
         String actWeight = sharedpreferences.getString(weight, "");
         String actGender = sharedpreferences.getString(gender, "");
 
@@ -430,9 +428,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.setDisplay((-1) * reduction);
     }
 
+    @SuppressLint("SetTextI18n")
     private void setDisplay(float bac) {
 
-        TextView actBac = (TextView) findViewById(R.id.state_data);
+        TextView actBac = findViewById(R.id.state_data);
 
         this.currentBAC += bac;
         if (this.currentBAC <= 0) {
@@ -452,15 +451,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         float roundedBAC = Math.round(this.currentBAC * 10.0f) / 10.0f;
-        actBac.setText(Float.toString(roundedBAC) + "‰");
+        actBac.setText(roundedBAC + "‰");
 
     }
 
+    @SuppressLint("SetTextI18n")
     private void setNewTimeTillSober() {
 
         if (this.currentBAC <= 0) {
-            TextView actTime = (TextView) findViewById(R.id.time_data);
-            actTime.setText(Float.toString(0.0f) + "h");
+            TextView actTime = findViewById(R.id.time_data);
+            actTime.setText(0.0f + "h");
             return;
         }
 
@@ -483,8 +483,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         float roundedTts = Math.round(this.tts * 10.0f) / 10.0f;
 
 
-        TextView actTime = (TextView) findViewById(R.id.time_data);
-        actTime.setText(Float.toString(roundedTts) + "h");
+        TextView actTime = findViewById(R.id.time_data);
+        actTime.setText(roundedTts + "h");
 
     }
 

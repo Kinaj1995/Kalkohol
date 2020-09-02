@@ -37,7 +37,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        ed1 = (EditText)findViewById(R.id.editProfileName);
+        ed1 = findViewById(R.id.editProfileName);
         ed1.setText(getName("name"));
         initData();
 
@@ -103,7 +103,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
     public void setUserData(){
         RadioButton vMale = findViewById(R.id.r_btn_male);
         RadioButton vFemale = findViewById(R.id.r_btn_female);
-        ed1 = (EditText)findViewById(R.id.editProfileName);
+        ed1 = findViewById(R.id.editProfileName);
         String str_userName = ed1.getText().toString();
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
