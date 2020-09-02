@@ -454,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.setNewTimeTillSober();
 
 
-        float roundedBAC = Math.round(this.currentBAC * 10.0f) / 10.0f;
+        float roundedBAC = Math.round(this.currentBAC * 100.0f) / 100.0f;
         actBac.setText(roundedBAC + "‰");
 
     }
@@ -484,7 +484,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         this.tts = this.currentBAC / fGender;
-        float roundedTts = Math.round(this.tts * 10.0f) / 10.0f;
+        float roundedTts = Math.round(this.tts * 100.0f) / 100.0f;
 
 
         TextView actTime = findViewById(R.id.time_data);
