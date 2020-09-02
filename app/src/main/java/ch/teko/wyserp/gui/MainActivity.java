@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.timestampOnCreate = new Timestamp(System.currentTimeMillis());
 
-//        closedAppTime();
+        closedAppTime();
 
         popup = new Dialog(this);
         popup.show();
@@ -400,9 +400,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actTime = sharedpreferences.getString(time, "0000-00-00 00:00:00.000");
 
-        this.actTimestamp = Timestamp.valueOf(actTime);
-        passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
-        alcReduction(passedTime / 1000f / 60f);
+        if (actTime.equals("0000-00-00 00:00:00.000")) {
+            return;
+        } else {
+            this.actTimestamp = Timestamp.valueOf(actTime);
+            passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
+            alcReduction(passedTime / 1000f / 60f);
+        }
     }
 
     public void alcReduction(float elapsedTime) {
