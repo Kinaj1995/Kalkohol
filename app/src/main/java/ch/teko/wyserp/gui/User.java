@@ -64,7 +64,7 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actAge = sharedpreferences.getString(age, "25");
         String actWeight = sharedpreferences.getString(weight, "80");
-        String actGender = sharedpreferences.getString(gender, "0");
+        String actGender = sharedpreferences.getString(gender, "male");
 
         assert actAge != null;
         int iAge= Integer.parseInt(actAge);
