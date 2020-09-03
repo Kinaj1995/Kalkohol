@@ -400,9 +400,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actTime = sharedpreferences.getString(time, "0000-00-00 00:00:00.000");
 
-        if (actTime.equals("0000-00-00 00:00:00.000")) {
-            return;
-        } else {
+        assert actTime != null;
+        if (!actTime.equals("0000-00-00 00:00:00.000")) {
             this.actTimestamp = Timestamp.valueOf(actTime);
             passedTime = this.timestampOnCreate.getTime() - this.actTimestamp.getTime();
             alcReduction(passedTime / 1000f / 60f);
@@ -484,7 +483,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         this.tts = this.currentBAC / fGender;
-        float roundedTts = Math.round(this.tts * 100.0f) / 100.0f;
+        float roundedTts = Math.round(this.tts * 10.0f) / 10.0f;
 
 
         TextView actTime = findViewById(R.id.time_data);

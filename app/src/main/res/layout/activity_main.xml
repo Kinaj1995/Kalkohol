@@ -62,7 +62,7 @@
     <TextView
         android:id="@+id/profile_username"
         android:layout_width="199dp"
-        android:layout_height="27dp"
+        android:layout_height="28dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/colorText"
@@ -72,15 +72,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profile_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175" />
+        app:layout_constraintTop_toTopOf="@+id/profile_title"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/state_data"
-        android:layout_width="150dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_width="167dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
         android:text="@string/current_state_data"
@@ -93,7 +93,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/current_state_title"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.271" />
+        app:layout_constraintVertical_bias="0.268" />
 
     <TextView
         android:id="@+id/current_state_title"
@@ -117,8 +117,8 @@
         android:id="@+id/time_data"
         android:layout_width="149dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
         android:text="@string/time_data"
@@ -129,20 +129,20 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/time_title"
+        app:layout_constraintStart_toStartOf="@+id/state_data"
         app:layout_constraintTop_toBottomOf="@+id/current_state_title"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.047" />
 
     <TextView
         android:id="@+id/time_title"
-        android:layout_width="182dp"
-        android:layout_height="35dp"
+        android:layout_width="162dp"
+        android:layout_height="38dp"
         android:layout_marginTop="28dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
         android:text="@string/title_time"
         android:textColor="@color/colorText"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:typeface="normal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
