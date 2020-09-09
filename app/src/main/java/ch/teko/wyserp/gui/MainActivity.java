@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // BAC + time vom lokalen Speicher lesen
+        // BAC vom lokalen Speicher lesen
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         String actBAC = sharedpreferences.getString(BAC, "0.0");
@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         popup = new Dialog(this);
         popup.show();
         popup.setContentView(R.layout.popup);
-
 
 
     }
@@ -149,6 +148,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    public void initUserData() {
+        super.onResume();
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        String actName = sharedpreferences.getString(name, "Max Muster");
+        String actGender = sharedpreferences.getString(gender, "0");
+
+        TextView actProfile = findViewById(R.id.profile_username);
+        actProfile.setText(actName);
+
+        assert actGender != null;
+        if (actGender.equals("0")) {
+            Toast.makeText(this, "Erstellen Sie bitte zuerst ein Profil", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void initListData() {
+        listGroup.add(getString(R.string.group1));
+        listGroup.add(getString(R.string.group2));
+        listGroup.add(getString(R.string.group3));
+        listGroup.add(getString(R.string.group4));
+
+        String[] array;
+
+        List<String> list1 = new ArrayList<>();
+        array = getResources().getStringArray(R.array.group1);
+
+        Collections.addAll(list1, array);
+        List<String> list2 = new ArrayList<>();
+        array = getResources().getStringArray(R.array.group2);
+        Collections.addAll(list2, array);
+        List<String> list3 = new ArrayList<>();
+        array = getResources().getStringArray(R.array.group3);
+        Collections.addAll(list3, array);
+        List<String> list4 = new ArrayList<>();
+        array = getResources().getStringArray(R.array.group4);
+        Collections.addAll(list4, array);
+
+        listItem.put(listGroup.get(0), list1);
+        listItem.put(listGroup.get(1), list2);
+        listItem.put(listGroup.get(2), list3);
+        listItem.put(listGroup.get(3), list4);
+        adapter.notifyDataSetChanged();
+    }
+
     /**
      * childPosition = 0:
      * Beverage:                   Stange Eichhof Lager (URL: https://www.eichhof.ch/biere/klassiker/lager)
@@ -189,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * childPosition = 0:
      * Beverage:                   Rotwein 1dl
      * Volume (V):                 100 ml
-     * Volume percentage (e):      13 % VOL. = 0.12
+     * Volume percentage (e):      13 % VOL. = 0.13
      * Density of ethanol (ϱ):     0.8 g/ml
      * <p>
      * childPosition = 1:
@@ -292,52 +337,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return 0.0f;
     }
 
-    public void initUserData() {
-        super.onResume();
-        SharedPreferences sharedpreferences;
-        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actName = sharedpreferences.getString(name, "Max Muster");
-        String actGender = sharedpreferences.getString(gender, "0");
-
-        TextView actProfile = findViewById(R.id.profile_username);
-        actProfile.setText(actName);
-
-        assert actGender != null;
-        if (actGender.equals("0")) {
-            Toast.makeText(this, "Erstellen Sie bitte zuerst ein Profil", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-    private void initListData() {
-        listGroup.add(getString(R.string.group1));
-        listGroup.add(getString(R.string.group2));
-        listGroup.add(getString(R.string.group3));
-        listGroup.add(getString(R.string.group4));
-
-        String[] array;
-
-        List<String> list1 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.group1);
-
-        Collections.addAll(list1, array);
-        List<String> list2 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.group2);
-        Collections.addAll(list2, array);
-        List<String> list3 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.group3);
-        Collections.addAll(list3, array);
-        List<String> list4 = new ArrayList<>();
-        array = getResources().getStringArray(R.array.group4);
-        Collections.addAll(list4, array);
-
-        listItem.put(listGroup.get(0), list1);
-        listItem.put(listGroup.get(1), list2);
-        listItem.put(listGroup.get(2), list3);
-        listItem.put(listGroup.get(3), list4);
-        adapter.notifyDataSetChanged();
-    }
-
     public float calcNewDrink(float AlcWeight) {
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
@@ -351,12 +350,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         assert actGender != null;
         if (actGender.equals("male")) {
             float fGender = 0.68f;
-            result = AlcWeight / fWeight / fGender;
+            result = AlcWeight / (fWeight * fGender);
         }
 
         if (actGender.equals("female")) {
             float fGender = 0.55f;
-            result = AlcWeight / fWeight / fGender;
+            result = AlcWeight / (fWeight * fGender);
         }
 
         return result;
@@ -389,11 +388,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putString(time, str_timestamp);
                 editor.apply();
             }
-        }, 10000, 60000);
+        }, 2000, 60000);
 
     }
 
-    public void closedAppTime(){
+    public void closedAppTime() {
         float passedTime;
 
         SharedPreferences sharedpreferences;
@@ -432,33 +431,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @SuppressLint("SetTextI18n")
-    private void setDisplay(float bac) {
-
-        TextView actBac = findViewById(R.id.state_data);
-
-        this.currentBAC += bac;
-        if (this.currentBAC <= 0) {
-            this.currentBAC = 0;
-        }
-
-        // der currentBAC im lokalen Speicher speichern
-        SharedPreferences sharedpreferences;
-        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpreferences.edit();
-        String str_currentBAC = Float.toString(this.currentBAC);
-        editor.putString(BAC, str_currentBAC);
-        editor.apply();
-
-
-        this.setNewTimeTillSober();
-
-
-        float roundedBAC = Math.round(this.currentBAC * 100.0f) / 100.0f;
-        actBac.setText(roundedBAC + "‰");
-
-    }
-
-    @SuppressLint("SetTextI18n")
     private void setNewTimeTillSober() {
 
         if (this.currentBAC <= 0) {
@@ -488,6 +460,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         TextView actTime = findViewById(R.id.time_data);
         actTime.setText(roundedTts + "h");
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setDisplay(float bac) {
+
+        TextView actBac = findViewById(R.id.state_data);
+
+        this.currentBAC += bac;
+        if (this.currentBAC <= 0) {
+            this.currentBAC = 0;
+        }
+
+        // der currentBAC im lokalen Speicher speichern
+        SharedPreferences sharedpreferences;
+        sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        String str_currentBAC = Float.toString(this.currentBAC);
+        editor.putString(BAC, str_currentBAC);
+        editor.apply();
+
+
+        this.setNewTimeTillSober();
+
+
+        float roundedBAC = Math.round(this.currentBAC * 100.0f) / 100.0f;
+        actBac.setText(roundedBAC + "‰");
 
     }
 
