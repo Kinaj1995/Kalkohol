@@ -65,7 +65,7 @@
         android:layout_height="28dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
-        android:textColor="@color/colorText"
+        android:textColor="@color/colorTextLight"
         android:textSize="22sp"
         android:typeface="normal"
         android:visibility="visible"
@@ -209,7 +209,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="362dp"
         android:layout_marginTop="56dp"
         android:fadeScrollbars="true"
         android:isScrollContainer="true"
@@ -222,7 +222,7 @@
         <ExpandableListView
             android:id="@+id/expandable_list"
             android:layout_width="match_parent"
-            android:layout_height="307dp"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:overScrollMode="always" />
