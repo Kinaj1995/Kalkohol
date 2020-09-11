@@ -17,46 +17,50 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
         android:alpha="0.2"
+        android:contentDescription="@string/background_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/logo300"
-        android:contentDescription="@string/background_description" />
+        app:srcCompat="@drawable/logo300" />
 
     <TextView
         android:id="@+id/userTitle2"
-        android:layout_width="155dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="79dp"
+        android:layout_width="136dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
+        android:gravity="center"
         android:text="@string/weight_title"
         android:textColor="@color/colorText"
         android:textSize="30sp"
         android:typeface="normal"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.921"
+        app:layout_constraintEnd_toEndOf="@+id/editProfileName"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UserTitle"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileName"
+        app:layout_constraintVertical_bias="0.0" />
 
     <NumberPicker
         android:id="@+id/pickerWeight"
         android:layout_width="wrap_content"
         android:layout_height="93dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:textSize="38sp"
         android:theme="@style/AppTheme.Picker"
+        app:layout_constraintEnd_toEndOf="@+id/userTitle2"
+        app:layout_constraintHorizontal_bias="0.527"
         app:layout_constraintStart_toStartOf="@+id/userTitle2"
         app:layout_constraintTop_toBottomOf="@+id/userTitle2" />
 
     <TextView
         android:id="@+id/userTitle3"
-        android:layout_width="155dp"
+        android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginTop="79dp"
         android:background="#00FFFFFF"
@@ -76,7 +80,7 @@
 
     <TextView
         android:id="@+id/userTitleName"
-        android:layout_width="91dp"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
@@ -113,30 +117,29 @@
 
     <TextView
         android:id="@+id/userTitle"
-        android:layout_width="155dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="79dp"
+        android:layout_width="136dp"
+        android:layout_height="38dp"
         android:background="#00FFFFFF"
         android:fontFamily="sans-serif-black"
+        android:gravity="center"
         android:text="@string/age_title"
         android:textColor="@color/colorText"
         android:textSize="30sp"
         android:typeface="normal"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.302"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UserTitle"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintStart_toStartOf="@+id/editProfileName"
+        app:layout_constraintTop_toBottomOf="@+id/editProfileName" />
 
     <NumberPicker
         android:id="@+id/pickerAge"
         android:layout_width="wrap_content"
         android:layout_height="88dp"
-        android:layout_marginTop="00dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:textSize="38sp"
         android:theme="@style/AppTheme.Picker"
+        app:layout_constraintEnd_toEndOf="@+id/userTitle"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="@+id/userTitle"
         app:layout_constraintTop_toBottomOf="@+id/userTitle" />
 
@@ -154,7 +157,7 @@
 
     <RadioGroup
         android:id="@+id/toggle"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
@@ -186,7 +189,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="1dp"
-            android:layout_marginEnd="1dp"
+            android:layout_marginEnd="48dp"
             android:layout_marginRight="1dp"
             android:layout_marginBottom="1dp"
             android:layout_weight="1"
@@ -231,9 +234,9 @@
 
     <Button
         android:id="@+id/btn_enter_user"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginStart="128dp"
+        android:layout_marginStart="0dp"
         android:layout_marginLeft="128dp"
         android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
@@ -249,20 +252,28 @@
 
     <EditText
         android:id="@+id/editProfileName"
-        android:layout_width="232dp"
+        android:layout_width="match_parent"
         android:layout_height="57dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="48dp"
+        android:autofillHints=""
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userTitleName"
-        android:autofillHints=""
         tools:ignore="LabelFor" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="206dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
