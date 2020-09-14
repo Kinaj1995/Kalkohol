@@ -340,8 +340,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public float calcNewDrink(float AlcWeight) {
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actWeight = sharedpreferences.getString(weight, "");
-        String actGender = sharedpreferences.getString(gender, "");
+        String actWeight = sharedpreferences.getString(weight, "80");
+        String actGender = sharedpreferences.getString(gender, "male");
 
         assert actWeight != null;
         float fWeight = Float.parseFloat(actWeight);
@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
-        String actGender = sharedpreferences.getString(gender, "");
+        String actGender = sharedpreferences.getString(gender, "male");
 
         float fGender = 0.0f;
 
