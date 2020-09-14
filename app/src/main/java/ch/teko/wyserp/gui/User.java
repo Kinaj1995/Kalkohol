@@ -55,6 +55,9 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         initData();
     }
 
+    /**
+     * Initialize the values from the saved Datas
+     */
     public void initData() {
         RadioButton male = findViewById(R.id.r_btn_male);
         male.setOnClickListener(this);
@@ -100,6 +103,9 @@ public class User extends AppCompatActivity implements View.OnClickListener {
         userEnter.setOnClickListener(this);
     }
 
+    /**
+     * Set the new UserData and save it on the Device.
+     */
     public void setUserData(){
         RadioButton vMale = findViewById(R.id.r_btn_male);
         RadioButton vFemale = findViewById(R.id.r_btn_female);
@@ -132,13 +138,18 @@ public class User extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * Gets the actual Name
+     */
     public String getName(String sName){
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
         return sharedpreferences.getString(sName, "Max Muster");
 
     }
-
+    /**
+     * Method to listen on a click event
+     */
     @Override
     public void onClick(View v) {
 

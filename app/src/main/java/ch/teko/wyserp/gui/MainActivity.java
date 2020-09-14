@@ -97,7 +97,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         initUserData();
     }
-
+    /**
+     * Method to listen on a click event
+     */
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_user) {
@@ -105,7 +107,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
+    /**
+     * Method to listen on a LongClick event
+     */
     @Override
     public boolean onLongClick(View v) {
         if (v.getId() == R.id.btn_reset) {
@@ -122,7 +126,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
-
+    /**
+     * Method to listen on a childClick event
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -147,7 +153,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
-
+    /**
+     * Method to initialise the UserData
+     * Get the UserData from the local Storage on the Device and set the Profile Username.
+     * name:            Name of the saved User
+     * gender:          Gender of the saved User
+     */
     public void initUserData() {
         super.onResume();
         SharedPreferences sharedpreferences;
@@ -164,7 +175,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
+    /**
+     * Method to initialize the ExpandableListView.
+     * ListGroups:
+     * 0:           Bier
+     * 1:           Wein
+     * 2:           Longdrinks
+     * 3:           Shots
+     */
     private void initListData() {
         listGroup.add(getString(R.string.group1));
         listGroup.add(getString(R.string.group2));
@@ -336,7 +354,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return 0.0f;
     }
-
+    /**
+     * Method to calculate the new BAC.
+     * float AlcWeight: Alcohol in grams
+     */
     public float calcNewDrink(float AlcWeight) {
         SharedPreferences sharedpreferences;
         sharedpreferences = getSharedPreferences(user, Context.MODE_PRIVATE);
@@ -361,7 +382,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return result;
 
     }
-
+    /**
+     * Method to run the method alcReduction every minute and save a Timestamp on SharePreferences.
+     */
     public void initTimer() {
 
         Timer timer = new Timer();
@@ -391,7 +414,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }, 2000, 60000);
 
     }
-
+    /**
+     * Gets the TimeDifference from the Timestamp from the InitTimer Method and the Timestamp
+     * from the OnCreate.
+     * passedTime		= 	time from closed App in minutes
+     * actTimestamp		= 	last saved Timestamp before App was closed
+     * timestampOnCreate	= 	Timestamp from OnCreate
+     */
     public void closedAppTime() {
         float passedTime;
 
@@ -406,7 +435,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             alcReduction(passedTime / 1000f / 60f);
         }
     }
-
+    /**
+     * Calculate the alcohol reduction
+     *
+     * reduction	= 	 alcohol reduction in per thousand (‰)
+     * fGender  	= 	alcohol reduction per hour (depends on gender)
+     * elapsedTime	= 	elapsed time from the last calculation
+     */
     public void alcReduction(float elapsedTime) {
 
 
@@ -429,7 +464,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         this.setDisplay((-1) * reduction);
     }
-
+    /**
+     * Calculate the time til sober
+     *
+     * tts		    = timeTillSober
+     * currentBAC	= actual BAC
+     * fGender		= alc reduction per hour
+     */
     @SuppressLint("SetTextI18n")
     private void setNewTimeTillSober() {
 
@@ -462,7 +503,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         actTime.setText(roundedTts + "h");
 
     }
-
+    /**
+     * Set the new values to Display
+     */
     @SuppressLint("SetTextI18n")
     private void setDisplay(float bac) {
 
